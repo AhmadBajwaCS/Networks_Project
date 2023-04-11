@@ -163,6 +163,5 @@ public class TCPServer {
             System.out.println("Log file not found. Creating new file");
             File logfile = new File("serverLog.txt");
         }
-
     }
 }
