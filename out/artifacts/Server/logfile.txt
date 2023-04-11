@@ -1,0 +1,22 @@
+
+New Connection: collin, Address:/127.0.0.1, Port: 55686Time: null
+Connection closed: collin, Address:0.0.0.0/0.0.0.0, Port: 55686, Time: 2023-04-11T17:49:03.609836Z, Total Time: PT1.1274598S
+New Connection: collinmatz, Address:/127.0.0.1, Port: 55872, Time: 2023-04-11T17:50:55.401799600Z
+Command Issued: collinmatz, Address:/127.0.0.1, Port: 55872, Time: 2023-04-11T17:50:55.412335500Z, Command: 1 + 2
+Command Issued: collinmatz, Address:/127.0.0.1, Port: 55872, Time: 2023-04-11T17:50:55.412335500Z, Command: 3 + 4
+Command Issued: collinmatz, Address:/127.0.0.1, Port: 55872, Time: 2023-04-11T17:50:55.412335500Z, Command: 5 + 6
+Connection closed: collinmatz, Address:/127.0.0.1, Port: 55872, Time: 2023-04-11T17:51:02.911111400Z, Total Time: PT7.4987759S
+New Connection: collinmatz, Address:/127.0.0.1, Port: 55955, Time: 2023-04-11T17:51:56.444580800Z
+Command Issued: collinmatz, Address:/127.0.0.1, Port: 55955, Time: 2023-04-11T17:51:56.455116900Z, Command: 1 + 2
+New Connection: john, Address:/127.0.0.1, Port: 55956, Time: 2023-04-11T17:52:08.496373100Z
+Command Issued: john, Address:/127.0.0.1, Port: 55956, Time: 2023-04-11T17:52:08.496875400Z, Command: 4 + 6
+Connection closed: john, Address:/127.0.0.1, Port: 55956, Time: 2023-04-11T17:52:15.324147700Z, Total Time: PT6.8272723S
+Command Issued: collinmatz, Address:/127.0.0.1, Port: 55955, Time: 2023-04-11T17:51:56.455116900Z, Command: 3 + 4
+Connection closed: collinmatz, Address:/127.0.0.1, Port: 55955, Time: 2023-04-11T17:52:21.570061700Z, Total Time: PT25.1149448S
+New Connection: collin, Address:/127.0.0.1, Port: 57023, Time: 2023-04-11T20:55:05.916447600Z
+Command Issued: collin, Address:/127.0.0.1, Port: 57023, Time: 2023-04-11T20:55:05.926983700Z, Command: 1 + 2 = 3
+Command Issued: collin, Address:/127.0.0.1, Port: 57023, Time: 2023-04-11T20:55:05.926983700Z, Command: 1 + 2
+Command Issued: collin, Address:/127.0.0.1, Port: 57023, Time: 2023-04-11T20:55:05.926983700Z, Command: 5+6
+Command Issued: collin, Address:/127.0.0.1, Port: 57023, Time: 2023-04-11T20:55:05.926983700Z, Command: -9 - 11
+Command Issued: collin, Address:/127.0.0.1, Port: 57023, Time: 2023-04-11T20:55:05.926983700Z, Command: 100 - 1000
+Connection closed: collin, Address:/127.0.0.1, Port: 57023, Time: 2023-04-11T20:55:37.676181500Z, Total Time: PT31.7491978S
