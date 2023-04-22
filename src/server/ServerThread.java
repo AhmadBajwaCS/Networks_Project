@@ -21,6 +21,7 @@ public class ServerThread extends Thread {
     Instant logonTime;
     Instant logoffTime;
 
+    // Define a constructor that takes a Socket object, a BufferedReader object, and a DataOutputStream object as arguments and initializes the instance variables.
     public ServerThread(Socket s, BufferedReader dis, DataOutputStream dos)
     {
         this.socket = s;
@@ -28,16 +29,22 @@ public class ServerThread extends Thread {
         this.output = dos;
     }
 
+    // Check if login is successful
     private boolean login()
     {
         try {
+            // read in the username
             username = this.input.readLine();
             this.output.writeBytes("Welcome, " + username + "! Type the command (close) at any time to disconnect.\n");
+
+            // set time to current time and log the connection details
             logonTime = Instant.now();
             logInfo("New Connection: " + username + ", Address:" + socket.getLocalAddress() + ", Port: "
                     + socket.getPort() + ", Time: " + logonTime);
             logonTime = Instant.now();
+
             return true;
+
         } catch (IOException e) {
             return false;
         }
@@ -46,6 +53,7 @@ public class ServerThread extends Thread {
     @Override
     public void run()
     {
+        // only run if login is successful
         if (!login()) {
             return;
         }
@@ -55,7 +63,8 @@ public class ServerThread extends Thread {
                 // get client input, calculate result, and output to client. If client requests
                 //  to close the connection, close instead
                 String clientSentence = this.input.readLine();
-                if (clientSentence.toLowerCase().equals("close")) {
+
+                if (clientSentence.toLowerCase().equals("close")) { // log off "close"
                     this.output.writeBytes("Disconnecting\n");
                     logoffTime = Instant.now();
                     logInfo("Connection closed: " + username + ", Address:" + socket.getLocalAddress() + ", Port: "
@@ -63,9 +72,11 @@ public class ServerThread extends Thread {
                     this.socket.close();
                     break;
                 }
-                else {
+                else {  // if the clien doesnt send "close"
                     logInfo("Command Issued: " + username + ", Address:" + socket.getLocalAddress() + ", Port: "
                             + socket.getPort() + ", Time: " + logonTime + ", Command: " + clientSentence);
+
+                    // evaluate the result and send it
                     String result = evaluate(clientSentence) + '\n';
                     this.output.writeBytes(result);
                 }
@@ -100,13 +111,15 @@ public class ServerThread extends Thread {
         String nextNum = "";
         char c;
 
+        //loop through each character in the expression
         for (int i = 0; i < expression.length(); ++i) {
             c = expression.charAt(i);
 
+            // if current char is a digit, add to nextNum
             if (Character.isDigit(c)) {
                 nextNum += c;
             }
-
+            // handle paranthesis w/ a stack
             else if (c == '(')
                 charStack.push(c);
 
@@ -132,8 +145,10 @@ public class ServerThread extends Thread {
             }
         }
 
+        // if there is still a nextNum, add it to the postfix
         if (!nextNum.equals(""))
             postfixExpression.add(nextNum);
+        // pop any remaning operators from charStack
         while (!charStack.isEmpty()) {
             if (charStack.peek() == '(')
                 return null;
@@ -141,7 +156,7 @@ public class ServerThread extends Thread {
             charStack.pop();
         }
 
-        return postfixExpression;
+        return postfixExpression;   // return the postfix expression
     }
 
     private String evaluate(String expression)
@@ -150,6 +165,7 @@ public class ServerThread extends Thread {
         expression = expression.replaceAll("\\s", "");
         List<String> postfixExpression = infixToPostfix(expression);
 
+        // if the expression is invalid, return an error.
         if (postfixExpression == null) {
             resultSentence = "ERROR: Invalid expression entered.";
             return resultSentence;
@@ -157,9 +173,12 @@ public class ServerThread extends Thread {
 
         Stack<Integer> expressionStack = new Stack<>();
 
+        // Loop through all tokens
         int operand1, operand2;
         for (int i = 0; i < postfixExpression.size(); ++i) {
             String s = postfixExpression.get(i);
+
+            // if it is an operator, pop two operands and do calculation
             if (s.matches("[+-//*^]")) {
                 operand1 = expressionStack.pop();
                 operand2 = expressionStack.pop();
@@ -186,18 +205,21 @@ public class ServerThread extends Thread {
                         result = (int) Math.pow(operand2, operand1);
                         break;
                 }
+                // push the resulting calculation
                 expressionStack.push(result);
             }
+            // if the token is not an operator, push it to the stack
             else {
                 try {
                     expressionStack.push(Integer.parseInt(s));
                 }
-                catch (NumberFormatException e) {
+                catch (NumberFormatException e) { // return an error if not a number
                     return "ERROR: Unknown symbol " + s;
                 }
             }
         }
 
+        // The top of the stack is the result
         resultSentence = Integer.toString(expressionStack.pop());
         return resultSentence;
     }
@@ -205,12 +227,17 @@ public class ServerThread extends Thread {
     private void logInfo(String data)
     {
         try {
+            // establish a log file
             File log = new File("logfile.txt");
             if (log.createNewFile())
                 System.out.println("File created: " + log.getName());
             FileWriter myWriter = new FileWriter("logfile.txt", true);
+
+            // write the given data to the file
             myWriter.write(data + "\n");
             myWriter.close();
+
+            // print the data to console
             System.out.println(data);
         } catch (IOException e) {
             e.printStackTrace();
